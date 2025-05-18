@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MinhPham.design Clone</title>
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      color: #222;
+      background: #fff;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: #fff;
+      border-bottom: 1px solid #eaeaea;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 0 20px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li {
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.03em;
+    }
+    nav ul li a {
+      padding: 8px 10px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    nav ul li a:hover,
+    nav ul li a:focus {
+      background-color: #f0f0f0;
+      outline: none;
+    }
+
+    /* Container max width */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    /* Hero Section */
+    header.hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100vh;
+      padding-top: 60px; /* for nav */
+      text-align: center;
+    }
+    header.hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.1;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      color: #111;
+    }
+    header.hero p {
+      margin-top: 20px;
+      font-size: 1.25rem;
+      color: #555;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.4;
+    }
+
+    /* Scroll animation hidden state */
+    .hidden {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      will-change: opacity, transform;
+    }
+    /* Show state */
+    .show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Section style */
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    section:last-child {
+      border-bottom: none;
+    }
+
+    section h2 {
+      font-weight: 700;
+      font-size: 2.25rem;
+      margin-bottom: 24px;
+      color: #111;
+      text-align: center;
+    }
+
+    section p {
+      font-size: 1rem;
+      color: #555;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    /* Work Showcase - horizontal scroll */
+    .work-showcase {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding-bottom: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: #aaa #eee;
+      -webkit-overflow-scrolling: touch;
+    }
+    /* Scrollbar styling for WebKit browsers */
+    .work-showcase::-webkit-scrollbar {
+      height: 8px;
+    }
+    .work-showcase::-webkit-scrollbar-track {
+      background: #eee;
+      border-radius: 4px;
+    }
+    .work-showcase::-webkit-scrollbar-thumb {
+      background-color: #aaa;
+      border-radius: 4px;
+    }
+
+    .work-card {
+      flex: 0 0 300px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .work-card:hover,
+    .work-card:focus-within {
+      transform: translateY(-8px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      outline: none;
+    }
+
+    .work-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      user-select: none;
+    }
+    .work-card h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #222;
+    }
+    .work-card p {
+      font-size: 0.95rem;
+      color: #666;
+      flex-grow: 1;
+    }
+
+    /* Contact Section Form */
+    form {
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    form label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+    form input,
+    form textarea {
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      resize: vertical;
+      font-family: inherit;
+    }
+    form textarea {
+      min-height: 100px;
+    }
+    form button {
+      background: #222;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    form button:hover,
+    form button:focus {
+      background: #444;
+      outline: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header.hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .work-card {
+        flex: 0 0 240px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav ul {
+        gap: 15px;
+      }
+      header.hero h1 {
+        font-size: 2rem;
+      }
+      .work-card {
+        flex: 0 0 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="#hero" tabindex="1">Home</a></li>
+      <li><a href="#about" tabindex="2">About</a></li>
+      <li><a href="#work" tabindex="3">Work</a></li>
+      <li><a href="#contact" tabindex="4">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="hero" class="hero container">
+    <h1 class="hidden">Hi, I’m [Your Name].<br> A Minimalist Designer & Developer.</h1>
+    <p class="hidden">I create clean, responsive, and engaging digital experiences that are easy to use and visually beautiful.</p>
+  </header>
+
+  <!-- About Section -->
+  <section id="about" class="container">
+    <h2 class="hidden">About Me</h2>
+    <p class="hidden">I’m passionate about creating simple and elegant web designs that focus on usability and clean aesthetics. With expertise in front-end and back-end technologies, I build websites that not only look great but also perform flawlessly.</p>
+  </section>
+
+  <!-- Work Section -->
+  <section id="work" class="container">
+    <h2 class="hidden">My Work</h2>
+    <div class="work-showcase">
+      <article class="work-card hidden" tabindex="0">
+        <img src="Screenshot 2025-05-18 164525.png" alt="Project 1" loading="lazy" />
+        <h3>Project One</h3>
+        <p>A responsive website design that focuses on user experience and clarity.</p>
+      </article>
+      <article class="work-card hidden" tabindex="0">
+        <img src="project1.png" alt="Project 2" loading="lazy" />
+        <h3>Project Two</h3>
+        <p>A clean and minimal portfolio showcasing creative work with smooth animations.</p>
+      </article>
+      <article class="work-card hidden" tabindex="0">
+        <img src="https://source.unsplash.com/300x180/?app" alt="Project 3" loading="lazy" />
+        <h3>Project Three</h3>
+        <p>Design and development of a modern web app with focus on performance and accessibility.</p>
+      </article>
+      <article class="work-card hidden" tabindex="0">
+        <img src="https://source.unsplash.com/300x180/?design" alt="Project 4" loading="lazy" />
+        <h3>Project Four</h3>
+        <p>A branding and website redesign project emphasizing minimalism and clarity.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="container">
+    <h2 class="hidden">Get In Touch</h2>
+    <form aria-label="Contact form" action="#" method="POST">
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" required autocomplete="name" />
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required autocomplete="email" />
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required></textarea>
+
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <script>
+    // Scroll fade-in animation
+    const hiddenElements = document.querySelectorAll('.hidden');
+
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    hiddenElements.forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
